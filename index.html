@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/png" href="/icon.png" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script defer src="script.js"></script>
+    <title>mapty // Map your fun</title>
+  </head>
+  <body>
+    <div class="sidebar">
+      <img src="logo.png" alt="Logo" class="logo" />
+
+      <ul class="entertainments">
+        <form class="form hidden">
+          <div class="form__row">
+            <label class="form__label">Type</label>
+            <select class="form__input form__input--type">
+              <option value="beach">Beach</option>
+              <option value="river">River</option>
+              <option value="nightclub">Nightclub</option>
+              <option value="mountain">Mountain</option>
+              <option value="lodge">Lodge</option>
+              <option value="resort">Resort</option>
+            </select>
+          </div>
+          <div class="form__row">
+            <label class="form__label">Activity</label>
+            <select class="form__input form__input--activities">
+              <option value="swimming">Swimming</option>
+              <option value="camping">Camping</option>
+              <option value="hiking">Hiking</option>
+              <option value="surfing">Surfing</option>
+              <option value="jumping">Bungee Jumpee</option>
+              <option value="buggies">Buggies Racing</option>
+              <option value="rafting">Rafting</option>
+              <option value="parachuting">Parachuting</option>
+              <option value="skydiving">Skydiving</option>
+              <option value="scubadiving">Scuba Diving</option>
+            </select>
+          </div>
+          <div class="form__row">
+            <label class="form__label">Duration</label>
+            <input
+              class="form__input form__input--duration"
+              placeholder="hours"
+            />
+          </div>
+          <div class="form__row">
+            <label class="form__label">Dance</label>
+            <select class="form__input form__input--nightclub-dances">
+              <option value="salsa">Salsa</option>
+              <option value="bachata">Bachata</option>
+              <option value="merengue">Merengue</option>
+              <option value="reguee">Reguee</option>
+              <option value="hiphop">Hip Hop</option>
+            </select>
+          </div>
+          <div class="form__row form__row--hidden">
+            <label class="form__label">Cost</label>
+            <input
+              class="form__input form__input--price"
+              placeholder="dollars"
+            />
+          </div>
+          <button class="form__btn">OK</button>
+        </form>
+
+        <!-- <li class="workout workout--running" data-id="1234567890">
+          <h2 class="workout__title">Running on April 14</h2>
+          <div class="workout__details">
+            <span class="workout__icon">🏃‍♂️</span>
+            <span class="workout__value">5.2</span>
+            <span class="workout__unit">km</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⏱</span>
+            <span class="workout__value">24</span>
+            <span class="workout__unit">min</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⚡️</span>
+            <span class="workout__value">4.6</span>
+            <span class="workout__unit">min/km</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">🦶🏼</span>
+            <span class="workout__value">178</span>
+            <span class="workout__unit">spm</span>
+          </div>
+        </li>
+
+        <li class="workout workout--cycling" data-id="1234567891">
+          <h2 class="workout__title">Cycling on April 5</h2>
+          <div class="workout__details">
+            <span class="workout__icon">🚴‍♀️</span>
+            <span class="workout__value">27</span>
+            <span class="workout__unit">km</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⏱</span>
+            <span class="workout__value">95</span>
+            <span class="workout__unit">min</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⚡️</span>
+            <span class="workout__value">16</span>
+            <span class="workout__unit">km/h</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⛰</span>
+            <span class="workout__value">223</span>
+            <span class="workout__unit">m</span>
+          </div>
+        </li> -->
+      </ul>
+
+      <p class="copyright">
+        &copy; Copyright
+        <a
+          class="twitter-link"
+          target="_blank"
+          >Original design of workouts tracking and Software Structure by Jonas Schmedtmann</a
+        >. 
+        
+        <a
+        class="twitter-link"
+        target="_blank"
+        href="https://twitter.com/"
+        >Implementation idea of entertainments tracking by Jose Abel Ramirez Frontany</a
+      >
+      </p>
+    </div>
+
+    <div id="map"></div>
+  </body>
+</html>
