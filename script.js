@@ -3,14 +3,6 @@
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const form = document.querySelector('.form');
-const containerWorkouts = document.querySelector('.entertainments');
-const inputType = document.querySelector('.form__input--type');
-const inputActivity = document.querySelector('.form__input--activities');
-const inputDuration = document.querySelector('.form__input--duration');
-const inputPrice = document.querySelector('.form__input--price');
-const inputDances = document.querySelector('.form__input--nightclub-dances');
-
 
 class Entertainment {
   date = new Date();
@@ -24,14 +16,16 @@ class Entertainment {
 }
 
 class Getaway extends Entertainment {
-  constructor(coords, cost, duration, activityName, activity) {
+
+  constructor(coords, cost, duration, locationType, activityName) {
     super(coords, cost, duration);
+    this.type = locationType;
     this.activityName = activityName;
-    this.activity = activity;
   }
 }
 
-class Nightclub extends Entertainment {
+class Nightclub extends Entertainment { 
+  type = "nightclub";
   constructor(coords, cost, duration, dance) {
     super(coords, cost, duration);
     this.dance = dance;
@@ -40,9 +34,20 @@ class Nightclub extends Entertainment {
 
 ////////////////////////////////////////////
 // APPLICATION ARCHITECTURE
+
+const form = document.querySelector('.form');
+const containerWorkouts = document.querySelector('.entertainments');
+const inputType = document.querySelector('.form__input--type');
+const inputActivity = document.querySelector('.form__input--activities');
+const inputDuration = document.querySelector('.form__input--duration');
+const inputPrice = document.querySelector('.form__input--price');
+const inputDances = document.querySelector('.form__input--nightclub-dances');
+
+
 class App {
   #map;
   #mapEvent;
+  #entertainments = [];
 
   constructor() {
     this._getPosition();
@@ -96,22 +101,72 @@ class App {
   }
 
   _newEntertainment(e){
+
+    const validInputs = (...inputs) => inputs.every(inp => Number.isFinite(inp));
+
+    const allPositive = (...inputs) => inputs.every(inp => inp > 0);
+
     e.preventDefault();
+
+    const getawayArr = ["beach", "river", "mountain", "lodge", "resort"];
     
-    // Clear Input fields
-    inputDuration.value = inputPrice.value = "";
-  
-    // Display marker
+    // Get data from form
+    const type = inputType.value;
+
+    const duration = +inputDuration.value;
+
+    const price = +inputPrice.value;
+
     const {lat, lng} = this.#mapEvent.latlng
-    L.marker([lat, lng]).addTo(this.#map)
+
+    let entertainment;
+      
+    // If Entertainment is Getaway create getaway object
+    if (getawayArr.includes(type)) {
+      const activity = inputActivity.value;
+      // Check if data is valid
+      if(!validInputs(duration, price) || !allPositive(duration, price)) return alert("duration and price has to be positive numbers!");
+
+      entertainment = new Getaway([lat, lng], price, duration, type, activity);
+    }
+
+    // If Entertainment is Nightclub create nightclub object
+    if (type === "nightclub") {
+      const dance = inputDances.value;
+
+      if(!validInputs(duration, price) || !allPositive(duration, price)) return alert("duration and price has to be positive numbers!");
+
+      entertainment = new Nightclub([lat, lng], price, duration, dance);
+    }
+
+    // Add new object to Entertainment array
+    this.#entertainments.push(entertainment);
+
+    // Render entertainment on map as marker
+    this._renderWorkoutMarker(entertainment);
+
+    // Render new entertainment on list
+    this._renderEntertainment(entertainment);
+
+    // Hide form + clear input fields
+    inputDuration.value = inputPrice.value = "";
+
+  }
+
+  _renderWorkoutMarker(ent) {
+    L.marker(ent.coords).addTo(this.#map)
     .bindPopup(L.popup({
       maxWidth: 250,
       minWidth: 100,
       autoClose: false,
       closeOnClick: false,
-      className: "running-popup",
-    })).setPopupContent("Entertainment")
+      className: `${ent.type}-popup`,
+    })).setPopupContent(`${ent.type}`)
     .openPopup();
+  }
+
+  _renderEntertainment(ent) {
+    
   }
 }
 

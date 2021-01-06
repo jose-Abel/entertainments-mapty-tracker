@@ -1,6 +1,10 @@
 :root {
   --color-brand--1: #ffb545;
   --color-brand--2: #00c46a;
+  --color-brand--3: #005cc4;
+  --color-brand--4: #c4c100c5;
+  --color-brand--5: #c40000;
+  --color-brand--6: #ad00c4;
 
   --color-dark--1: #2d3439;
   --color-dark--2: #42484d;
@@ -212,9 +216,26 @@ a:visited {
   background-color: var(--color-dark--1);
 }
 
-.running-popup .leaflet-popup-content-wrapper {
+.beach-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--1);
+}
+
+.river-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--2);
 }
-.cycling-popup .leaflet-popup-content-wrapper {
-  border-left: 5px solid var(--color-brand--1);
+
+.nightclub-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--3);
+}
+
+.mountain-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--4);
+}
+
+.lodge-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--5);
+}
+
+.resort-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--6);
 }
