@@ -40,6 +40,23 @@
               <option value="resort">Resort</option>
             </select>
           </div>
+
+          <div class="form__row">
+            <label class="form__label">Cost</label>
+            <input
+              class="form__input form__input--price"
+              placeholder="dollars"
+            />
+          </div>
+
+          <div class="form__row">
+            <label class="form__label">Duration</label>
+            <input
+              class="form__input form__input--duration"
+              placeholder="hours"
+            />
+          </div>
+
           <div class="form__row">
             <label class="form__label">Activity</label>
             <select class="form__input form__input--activities">
@@ -54,15 +71,9 @@
               <option value="skydiving">Skydiving</option>
               <option value="scubadiving">Scuba Diving</option>
             </select>
-          </div>
-          <div class="form__row">
-            <label class="form__label">Duration</label>
-            <input
-              class="form__input form__input--duration"
-              placeholder="hours"
-            />
-          </div>
-          <div class="form__row">
+          </div>          
+
+          <div class="form__row form__row--hidden">
             <label class="form__label">Dance</label>
             <select class="form__input form__input--nightclub-dances">
               <option value="salsa">Salsa</option>
@@ -71,13 +82,6 @@
               <option value="reguee">Reguee</option>
               <option value="hiphop">Hip Hop</option>
             </select>
-          </div>
-          <div class="form__row form__row--hidden">
-            <label class="form__label">Cost</label>
-            <input
-              class="form__input form__input--price"
-              placeholder="dollars"
-            />
           </div>
           <button class="form__btn">OK</button>
         </form>
