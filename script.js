@@ -56,8 +56,13 @@ class App {
   #entertainments = [];
 
   constructor() {
+    // Get user's position
     this._getPosition();
 
+    // Get data from local storage
+    this._getLocalStorage();
+
+    // Attach event handlers
     form.addEventListener('submit', this._newEntertainment.bind(this));
 
     inputType.addEventListener("change", this._toggleDanceField);
@@ -88,6 +93,10 @@ class App {
   
       // Handling clicks on map
       this.#map.on('click', this._showForm.bind(this));
+
+      this.#entertainments.forEach(ent => {
+        this._renderEntertainmentMarker(ent);
+      });
   }
 
   _showForm(mapE){
@@ -162,16 +171,19 @@ class App {
     this.#entertainments.push(entertainment);
 
     // Render entertainment on map as marker
-    this._renderWorkoutMarker(entertainment);
+    this._renderEntertainmentMarker(entertainment);
 
     // Render new entertainment on list
     this._renderEntertainment(entertainment);
 
     // Hide form + clear input fields
     this._hideForm();
+
+    // Set local storage to all entertainments
+    this._setLocalStorage();
   }
 
-  _renderWorkoutMarker(ent) {
+  _renderEntertainmentMarker(ent) {
     L.marker(ent.coords).addTo(this.#map)
     .bindPopup(L.popup({
       maxWidth: 250,
@@ -226,13 +238,27 @@ class App {
 
     const entertainment = this.#entertainments.find(ent => ent.id === entertainmentEl.dataset.id);
 
-    console.log(entertainment);
-
     this.#map.setView(entertainment.coords, this.#mapZoomLevel, {
       animate: true,
       pan: {
         duration: 1,
       }
+    });
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem('entertainments', JSON.stringify(this.#entertainments));
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('entertainments'))
+
+    if(!data) return;
+
+    this.#entertainments = data;
+
+    this.#entertainments.forEach(ent => {
+      this._renderEntertainment(ent);
     });
   }
 }
