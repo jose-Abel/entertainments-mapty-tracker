@@ -41,7 +41,7 @@ class Nightclub extends Entertainment {
 // APPLICATION ARCHITECTURE
 
 const form = document.querySelector('.form');
-const containerWorkouts = document.querySelector('.entertainments');
+const containerEntertainments = document.querySelector('.entertainments');
 const inputType = document.querySelector('.form__input--type');
 const inputActivity = document.querySelector('.form__input--activities');
 const inputDuration = document.querySelector('.form__input--duration');
@@ -51,6 +51,7 @@ const inputDances = document.querySelector('.form__input--nightclub-dances');
 
 class App {
   #map;
+  #mapZoomLevel = 13;
   #mapEvent;
   #entertainments = [];
 
@@ -60,6 +61,8 @@ class App {
     form.addEventListener('submit', this._newEntertainment.bind(this));
 
     inputType.addEventListener("change", this._toggleDanceField);
+
+    containerEntertainments.addEventListener('click', this._moveToPopup.bind(this));
   }
 
   _getPosition() {
@@ -77,7 +80,7 @@ class App {
   
       const coords = [latitude, longitude];
   
-      this.#map = L.map('map').setView(coords, 13);
+      this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
   
       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -214,6 +217,23 @@ class App {
     }
 
     form.insertAdjacentHTML('afterend', html);
+  }
+
+  _moveToPopup(e) {
+    const entertainmentEl = e.target.closest('.entertainment');
+
+    if(!entertainmentEl) return;
+
+    const entertainment = this.#entertainments.find(ent => ent.id === entertainmentEl.dataset.id);
+
+    console.log(entertainment);
+
+    this.#map.setView(entertainment.coords, this.#mapZoomLevel, {
+      animate: true,
+      pan: {
+        duration: 1,
+      }
+    });
   }
 }
 

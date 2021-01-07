@@ -10,6 +10,7 @@ Project build with in vanilla JavaScript consisting of a website that connects t
 - CSS
 - Javascript
 - navigator API
+- localstorage API
 - Leaftlet
 
 ## Author
