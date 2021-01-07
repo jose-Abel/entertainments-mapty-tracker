@@ -1,9 +1,5 @@
 'use strict';
 
-// prettier-ignore
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-
 class Entertainment {
   date = new Date();
   id = (Date.now() + "").slice(-10);
@@ -13,6 +9,13 @@ class Entertainment {
     this.cost = cost;
     this.duration = duration;
   }
+
+  _setDescription() {
+    // prettier-ignore
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${months[this.date.getMonth()]} ${this.date.getDate()}`;
+  }
 }
 
 class Getaway extends Entertainment {
@@ -21,6 +24,7 @@ class Getaway extends Entertainment {
     super(coords, cost, duration);
     this.type = locationType;
     this.activityName = activityName;
+    this._setDescription();
   }
 }
 
@@ -29,6 +33,7 @@ class Nightclub extends Entertainment {
   constructor(coords, cost, duration, dance) {
     super(coords, cost, duration);
     this.dance = dance;
+    this._setDescription();
   }
 }
 
@@ -87,6 +92,17 @@ class App {
     form.classList.remove("hidden");
   }
 
+  _hideForm() {
+    // Empty inputs
+    inputDuration.value = inputPrice.value = "";
+
+    form.style.display = 'none';
+
+    form.classList.add("hidden");
+
+    setTimeout(()=> form.style.display = "grid", 1000);
+  }
+
   _toggleDanceField() {
     if (inputType.value === "nightclub") {
       inputDances.closest('.form__row').classList.toggle("form__row--hidden");
@@ -100,7 +116,7 @@ class App {
     }
   }
 
-  _newEntertainment(e){
+  _newEntertainment(e) {
 
     const validInputs = (...inputs) => inputs.every(inp => Number.isFinite(inp));
 
@@ -149,8 +165,7 @@ class App {
     this._renderEntertainment(entertainment);
 
     // Hide form + clear input fields
-    inputDuration.value = inputPrice.value = "";
-
+    this._hideForm();
   }
 
   _renderWorkoutMarker(ent) {
@@ -161,12 +176,44 @@ class App {
       autoClose: false,
       closeOnClick: false,
       className: `${ent.type}-popup`,
-    })).setPopupContent(`${ent.type}`)
+    })).setPopupContent(`${ent.type === 'nightclub' ? '💃' : '⛱'} ${ent.description}`)
     .openPopup();
   }
 
   _renderEntertainment(ent) {
-    
+    let html = `
+    <li class="entertainment entertainment--${ent.type}" data-id="${ent.id}">
+    <h2 class="entertainment__title">${ent.description}</h2>
+    <div class="entertainment__details">
+      <span class="entertainment__icon">${ent.type === 'nightclub' ? '🎉' : '⛱'}</span>
+      <span class="entertainment__value"> ${ent.cost}</span>
+      <span class="entertainment__unit">💸</span>
+    </div>
+    <div class="entertainment__details">
+      <span class="entertainment__icon">⏱</span>
+      <span class="entertainment__value">${ent.duration}</span>
+      <span class="entertainment__unit">hours</span>
+    </div>`;
+
+    if(ent.type !== 'nightclub') {
+      html += `
+      <div class="entertainment__details">
+        <span class="entertainment__icon">🏖 </span>
+        <span class="entertainment__value">${ent.activityName}</span>
+      </div>
+    </li>`;
+    }
+
+    if (ent.type === 'nightclub') {
+      html += `
+      <div class="entertainment__details">
+        <span class="entertainment__icon">💃</span>
+        <span class="entertainment__value">${ent.dance}</span>
+      </div>
+    </li>`;
+    }
+
+    form.insertAdjacentHTML('afterend', html);
   }
 }
 
