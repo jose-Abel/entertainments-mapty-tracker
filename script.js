@@ -261,6 +261,11 @@ class App {
       this._renderEntertainment(ent);
     });
   }
+
+  reset() {
+    localStorage.removeItem('entertainments');
+    location.reload();
+  }
 }
 
 const app = new App();
