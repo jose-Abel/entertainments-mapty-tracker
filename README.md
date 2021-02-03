@@ -23,7 +23,7 @@ You can clone this code anytime and load the HTML file on your browser. Since it
 
 ## Live version
 
-[live](https://jose-abel-entertainment-mapty-tracker.netlify.app/)
+[live version](https://jose-abel-entertainment-mapty-tracker.netlify.app/)
 
 
 ### Setup
